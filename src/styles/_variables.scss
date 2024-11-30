@@ -1,0 +1,86 @@
+$primary: #DC2626;
+$primary-content: #F9FAEC;
+$secondary: #22C55E;
+$secondary-content: #1E293B;
+$accent: #800080;
+$accent-content: #F9FAEC;
+$neutral: #F9FAEC;
+$neutral-content: #1E293B;
+$base-100: #0C1425;
+$base-200: #1E293B;
+$base-300: #334155;
+$base-content: #F9FAEC;
+$info: #0070F3;
+$info-content: #F9FAEC;
+$success: #22C55E;
+$success-content: #1E293B;
+$warning: #FFC001;
+$warning-content: #1E293B;
+$error: #C21F3A;
+$error-content: #F9FAEC;
+
+
+$screen-xs: 0px;
+$screen-sm: 600px;
+$screen-md: 700px;
+$screen-laptop: 1024px;
+$screen-lg: 1200px;
+$screen-lg2: 1280px;
+$screen-xl: 1536px;
+
+@mixin icon {
+    display: block;
+    background: no-repeat transparent center;
+    background-size: cover; 
+}
+
+@mixin ellipsize {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.h1 {
+    color: $base-300;
+    font-size: 36px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+}
+
+.h2 {
+    color: $base-300;
+    font-size: 22px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1;
+    letter-spacing: normal;
+    text-align: left;
+}
+
+.h3 {
+    color: $base-300;
+    font-size: 14px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1;
+    letter-spacing: normal;
+    text-align: left;
+}
+
+.regular {
+    opacity: 0.8;
+    font-size: 12px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1;
+    letter-spacing: normal;
+    color: $neutral;
+    text-align: left;
+}
