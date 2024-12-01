@@ -1,5 +1,5 @@
 import React from "react";
-import { useAppDispatch, useAppSelector } from "../store/client/hooks";
+import { useAppSelector } from "../store/client/hooks";
 import OutlinedInput from "../components/form/OutlinedInput";
 import { Box, Typography } from "@mui/material";
 import CustomButton from "../components/form/CustomButton";
@@ -15,9 +15,11 @@ import "dayjs/locale/tr";
 import { toast } from "react-toastify";
 import CustomTooltip from "../components/tooltip/CustomTooltip";
 import colors from "../styles/_export.scss";
+import { useNavigate } from "react-router-dom";
 
 function Movies() {
   const darkMode = useAppSelector((state) => state.darkMode.value);
+  const navigate = useNavigate();
 
   const [search, setSearch] = React.useState({
     title: "Pokemon",
@@ -162,6 +164,9 @@ function Movies() {
         hasNextPage={data?.data?.Search?.length === 10}
         isLoading={isLoading}
         rowCount={data?.data?.totalResults}
+        onRowClick={(row) => {
+          navigate(`/${row.id}`);
+        }}
       />
     </Box>
   );

@@ -16,6 +16,7 @@ interface ICustomTableProps {
   isLoading: boolean;
   columns: any[];
   rowCount: number;
+  onRowClick?: (params: any, event: React.MouseEvent) => void;
 }
 
 export default function CustomTable({
@@ -26,6 +27,7 @@ export default function CustomTable({
   isLoading,
   columns,
   rowCount,
+  onRowClick,
 }: ICustomTableProps) {
   const apiRef = useGridApiRef();
   const darkMode = useAppSelector((state) => state.darkMode.value);
@@ -74,6 +76,7 @@ export default function CustomTable({
             color: darkMode ? colors.neutral : colors.neutralLight,
           },
         }}
+        onRowClick={onRowClick}
       />
     </Box>
   );
