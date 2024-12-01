@@ -5,7 +5,6 @@ import colors from "../styles/_export.scss";
 function ErrorPage() {
   const navigate = useNavigate();
   const darkMode = useAppSelector((state) => state.darkMode.value);
-  console.log(darkMode);
   return (
     <Box
       sx={{

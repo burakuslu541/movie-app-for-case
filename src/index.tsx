@@ -7,10 +7,13 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Provider } from "react-redux";
 import { store } from "./store/client/store";
-import Layout from "./components/Layout";
-import ErrorPage from "./pages/ErrorPage";
-import Movies from "./pages/Movies";
-import Movie from "./pages/Movie";
+import { lazy, Suspense } from "react";
+import Loader from "./components/Loader/Loader";
+
+const Layout = lazy(() => import("./components/Layout"));
+const ErrorPage = lazy(() => import("./pages/ErrorPage"));
+const Movies = lazy(() => import("./pages/Movies"));
+const Movie = lazy(() => import("./pages/Movie"));
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -36,11 +39,13 @@ const router = createBrowserRouter([
 ]);
 
 root.render(
-  <Provider store={store}>
-    <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
-      <ReactQueryDevtools initialIsOpen={false} />
-      <ToastContainer position="bottom-left" />
-    </QueryClientProvider>
-  </Provider>
+  <Suspense fallback={<Loader />}>
+    <Provider store={store}>
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router} />
+        <ReactQueryDevtools initialIsOpen={false} />
+        <ToastContainer position="bottom-left" />
+      </QueryClientProvider>
+    </Provider>
+  </Suspense>
 );

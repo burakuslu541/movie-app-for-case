@@ -4,14 +4,10 @@ import { useAppSelector } from "../../store/client/hooks";
 import colors from "../../styles/_export.scss";
 
 interface ICustomButtonProps {
-  heightSize?: string;
-  paddingSize?: string;
-  backgroundColor?: string;
-  textTransform?: string;
-  textColor?: string;
-  borderRadius?: string;
+  height?: string;
+  padding?: string;
   fontSize?: string;
-  widthSize?: string;
+  width?: string;
   startIcon?: React.ReactNode;
   onClick?: () => void;
   disabled?: boolean;
@@ -20,40 +16,21 @@ interface ICustomButtonProps {
 }
 
 const CustomButton = (props: ICustomButtonProps) => {
-  const {
-    heightSize,
-    paddingSize,
-    backgroundColor,
-    textTransform,
-    textColor,
-    borderRadius,
-    fontSize,
-    widthSize,
-    ...other
-  } = props;
+  const { height, padding, width, ...other } = props;
   const darkMode = useAppSelector((state) => state.darkMode.value);
 
   const defaultProps = {
-    heightSize: "50px",
-    paddingSize: "15px",
-    backgroundColor: darkMode ? colors.warning : colors.warningLight,
-    textTransform: "uppercase",
-    textColor: darkMode ? colors.neutral : colors.neutralLight,
-    borderRadius: "12px",
+    height: "50px",
+    padding: "15px",
     fontSize: "12px",
-    widthSize: "auto",
+    width: "auto",
   };
 
   const allProps = {
     ...defaultProps,
-    heightSize,
-    paddingSize,
-    backgroundColor,
-    textTransform,
-    textColor,
-    borderRadius,
-    fontSize,
-    widthSize,
+    height,
+    padding,
+    width,
     ...other,
   };
 

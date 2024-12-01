@@ -2,6 +2,7 @@ import React from "react";
 import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 import colors from "../../styles/_export.scss";
 import { useAppSelector } from "../../store/client/hooks";
+import _ from "lodash";
 
 interface CustomSelectBoxProps {
   label: string;
@@ -41,7 +42,7 @@ const CustomSelectBox: React.FC<CustomSelectBoxProps> = ({
         }}
         onChange={onChangeHandler}
       >
-        {options.map((option) => (
+        {_.map(options, (option) => (
           <MenuItem key={option.value} value={option.value}>
             {option.label}
           </MenuItem>

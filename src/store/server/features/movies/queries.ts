@@ -16,7 +16,7 @@ const getMovies = async (params: GetMoviesParams) => {
         url: "/",
         method: "GET",
         params: {
-            apikey: 'ac872dcd',
+            apikey: process.env.REACT_APP_OMDB_API_KEY,
             ...params,
         },
     });
@@ -27,7 +27,7 @@ const getMovieById = async (id: string) => {
         url: "/",
         method: "GET",
         params: {
-            apikey: 'ac872dcd',
+            apikey: process.env.REACT_APP_OMDB_API_KEY,
             i: id,
         },
     });

@@ -13,13 +13,32 @@ import dayjs from "dayjs";
 import "dayjs/locale/en";
 import "dayjs/locale/tr";
 import { toast } from "react-toastify";
-import CustomTooltip from "../components/tooltip/CustomTooltip";
 import colors from "../styles/_export.scss";
 import { useNavigate } from "react-router-dom";
+import Popover from "@mui/material/Popover";
+import { useAppDispatch } from "../store/client/hooks";
+import { addSearch } from "../store/client/features/pastSearches/pastSearches";
+import _ from "lodash";
 
 function Movies() {
   const darkMode = useAppSelector((state) => state.darkMode.value);
+  const pastSearches = useAppSelector((state) => state.pastSearches.value);
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
+    null
+  );
+
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
+  const id = open ? "simple-popover" : undefined;
 
   const [search, setSearch] = React.useState({
     title: "Pokemon",
@@ -121,6 +140,10 @@ function Movies() {
               }`
             );
             setSearch({ title, type, year: year });
+            // addSearch: (state, action: PayloadAction<string>) => {
+            //     state.value.push(action.payload)
+            //   },
+            dispatch(addSearch(title));
           }}
         >
           <Typography
@@ -130,37 +153,77 @@ function Movies() {
             Search
           </Typography>
         </CustomButton>
-        <CustomTooltip
-          title={"Your search history"}
-          placement={"bottom"}
-          spanStyle={{ display: "flex" }}
-          tooltipStyle={{
-            maxWidth: "340px",
-            backgroundColor: "#FFFFFF",
-            border: "1px solid #C8DDE7",
-            color: "#6D809F",
-            font: "normal normal 500 11px/15px Axiforma",
-            padding: "16px",
-            boxShadow: "0px 4px 8px #31446929",
-            borderRadius: "8px",
-          }}
-          arrowStyle={{
-            color: "#FFFFFF",
+
+        <Box
+          sx={{
+            display: "flex",
+            gap: "8px",
+            alignItems: "center",
+            cursor: "pointer",
           }}
         >
-          <IconButton onClick={() => {}}>
-            <HistoryIcon />
+          <IconButton onClick={handleClick}>
+            <HistoryIcon color="primary" />
           </IconButton>
-        </CustomTooltip>
+          <Popover
+            id={id}
+            open={open}
+            anchorEl={anchorEl}
+            onClose={handleClose}
+            anchorOrigin={{
+              vertical: "bottom",
+              horizontal: "left",
+            }}
+          >
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                gap: "8px",
+                padding: "25px",
+                minWidth: "150px",
+                minHeight: "150px",
+              }}
+            >
+              {pastSearches.length === 0 ? (
+                <Typography>No past searches</Typography>
+              ) : (
+                _.uniq(pastSearches).map((search, index) => (
+                  <Typography
+                    key={index}
+                    onClick={() => {
+                      setTitle(search);
+                      setSearch({ title: search, type: "", year: "" });
+                      handleClose();
+                    }}
+                    sx={{
+                      cursor: "pointer",
+                      "&:hover": {
+                        color: darkMode ? colors.warning : colors.warningLight,
+                        textDecoration: "underline",
+                        opacity: 0.8,
+                      },
+                      width: "100%",
+                    }}
+                  >
+                    {search}
+                  </Typography>
+                ))
+              )}
+            </Box>
+          </Popover>
+        </Box>
       </Box>
       <CustomTable
         columns={columns}
         paginationModel={paginationModel}
         setPaginationModel={setPaginationModel}
-        rows={data?.data?.Search?.map((movie: any, index: number) => ({
-          ...movie,
-          id: movie.imdbID,
-        }))}
+        rows={_.uniqBy(data?.data?.Search, "imdbID").map(
+          (movie: any, index: number) => ({
+            ...movie,
+            id: movie.imdbID,
+          })
+        )}
         hasNextPage={data?.data?.Search?.length === 10}
         isLoading={isLoading}
         rowCount={data?.data?.totalResults}

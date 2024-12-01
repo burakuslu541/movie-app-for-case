@@ -1,10 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { darkModeSlice } from './features/darkMode/darkMode'
+import { pastSearchesSlice } from './features/pastSearches/pastSearches'
 // ...
 
 export const store = configureStore({
   reducer: {
     darkMode: darkModeSlice.reducer,
+    pastSearches: pastSearchesSlice.reducer,
   },
 })
 

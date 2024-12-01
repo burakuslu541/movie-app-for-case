@@ -1,77 +1,20 @@
-import React from "react";
-import { useAppDispatch, useAppSelector } from "../store/client/hooks";
-import OutlinedInput from "../components/form/OutlinedInput";
+import { useAppSelector } from "../store/client/hooks";
 import { Box, Typography } from "@mui/material";
-import CustomButton from "../components/form/CustomButton";
-import IconButton from "@mui/material/IconButton";
-import HistoryIcon from "@mui/icons-material/History";
-import {
-  useGetMovieById,
-  useGetMovies,
-} from "../store/server/features/movies/queries";
-import CustomTable from "../components/table/CustomTable";
-import CustomSelectBox from "../components/form/CustomSelectBox";
-import CustomDatePicker from "../components/form/CustomYearPicker";
-import dayjs from "dayjs";
-import "dayjs/locale/en";
-import "dayjs/locale/tr";
-import { toast } from "react-toastify";
+import { useGetMovieById } from "../store/server/features/movies/queries";
 import CustomTooltip from "../components/tooltip/CustomTooltip";
 import colors from "../styles/_export.scss";
 import { useLocation } from "react-router-dom";
 import { HashLoader } from "react-spinners";
+import _ from "lodash";
 
 function Movie() {
   const location = useLocation();
   const darkMode = useAppSelector((state) => state.darkMode.value);
 
-  const [search, setSearch] = React.useState({
-    title: "Pokemon",
-    type: "",
-    year: "",
-  });
-
-  const [title, setTitle] = React.useState("Pokemon");
-  const [type, setType] = React.useState("Type");
-  const [year, setYear] = React.useState("");
-
-  const [paginationModel, setPaginationModel] = React.useState({
-    page: 0,
-    pageSize: 10,
-  });
-
-  const columns = [
-    { field: "imdbID", headerName: "imdbID", minWidth: 120 },
-    { field: "Title", headerName: "Title", minWidth: 180, flex: 1 },
-    { field: "Year", headerName: "Year", minWidth: 180, flex: 1 },
-    { field: "Type", headerName: "Type", minWidth: 180, flex: 1 },
-    {
-      field: "Poster",
-      headerName: "Poster",
-      minWidth: 180,
-      flex: 1,
-      renderCell: (params: any) => (
-        <img
-          src={
-            params.value !== "N/A"
-              ? params.value
-              : "https://placehold.co/200x200/orange/white?text=No+Image"
-          }
-          alt="poster"
-          style={{ width: "200px", height: "200px", objectFit: "cover" }}
-        />
-      ),
-    },
-  ];
   const id =
     location.pathname.split("/")[location.pathname.split("/").length - 1];
   const { data, isLoading, error } = useGetMovieById(id);
-  console.log(data);
-  //example data
 
-  //     "Language": "English, Japanese",
-
-  // }
   return (
     <Box
       sx={{
@@ -479,7 +422,7 @@ function Movie() {
                   >
                     Ratings:
                   </Typography>
-                  {data?.data?.Ratings.map((rating: any) => (
+                  {_.map(data?.data?.Ratings, (rating) => (
                     <Typography
                       sx={{
                         color: darkMode ? colors.neutral : colors.neutralLight,
@@ -593,9 +536,16 @@ function Movie() {
                   >
                     Plot:
                   </Typography>
-                  {data?.data?.Plot.length > 80
-                    ? data?.data?.Plot.slice(0, 80) + "..."
-                    : data?.data?.Plot}
+                  <CustomTooltip
+                    title={data?.data?.Plot}
+                    placement="top"
+                    arrow
+                    noSpan
+                  >
+                    {data?.data?.Plot.length > 80
+                      ? data?.data?.Plot.slice(0, 80) + "..."
+                      : data?.data?.Plot}
+                  </CustomTooltip>
                 </Typography>
 
                 <Typography
