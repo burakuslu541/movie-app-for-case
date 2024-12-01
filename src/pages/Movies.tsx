@@ -149,9 +149,6 @@ function Movies() {
                 }`
               );
               setSearch({ title, type, year: year });
-              // addSearch: (state, action: PayloadAction<string>) => {
-              //     state.value.push(action.payload)
-              //   },
               dispatch(addSearch(title));
             }}
           >

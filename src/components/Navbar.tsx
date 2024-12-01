@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styles from "../styles/Navbar.module.scss";
 import { Box } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../store/client/hooks";
@@ -8,8 +8,12 @@ import { Typography } from "@mui/material";
 import { toggleDarkMode } from "../store/client/features/darkMode/darkMode";
 import colors from "../styles/_export.scss";
 import useMediaQuery from "@mui/material/useMediaQuery";
+//i18n
+import { withTranslation } from "react-i18next";
+import i18n from "../store/localize/localize";
 
 const Navbar = () => {
+  const { t } = i18n;
   const query = useMediaQuery("(max-width: 600px)");
   const darkMode = useAppSelector((state) => state.darkMode.value);
   const [theme, setTheme] = useState(darkMode);
@@ -22,7 +26,7 @@ const Navbar = () => {
     dispatch(toggleDarkMode(localTheme));
     localStorage.setItem("darkMode", localTheme);
   };
-
+  console.log("i18n", i18n);
   return (
     <Box
       className={styles.navbar}
@@ -42,6 +46,7 @@ const Navbar = () => {
         }}
       >
         Movie
+        {/* {t("movie")} */}
         <Typography
           sx={{
             color: darkMode ? colors.warning : colors.warningLight,
@@ -49,6 +54,7 @@ const Navbar = () => {
           }}
         >
           App
+          {/* {t("app")} */}
         </Typography>
       </Box>
 
@@ -67,4 +73,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default withTranslation()(Navbar);

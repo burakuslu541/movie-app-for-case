@@ -1,7 +1,5 @@
 import React from "react";
 import Button from "@mui/material/Button";
-import { useAppSelector } from "../../store/client/hooks";
-import colors from "../../styles/_export.scss";
 
 interface ICustomButtonProps {
   height?: string;
@@ -17,7 +15,6 @@ interface ICustomButtonProps {
 
 const CustomButton = (props: ICustomButtonProps) => {
   const { height, padding, width, ...other } = props;
-  const darkMode = useAppSelector((state) => state.darkMode.value);
 
   const defaultProps = {
     height: "50px",

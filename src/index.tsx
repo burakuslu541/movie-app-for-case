@@ -9,7 +9,7 @@ import { Provider } from "react-redux";
 import { store } from "./store/client/store";
 import { lazy, Suspense } from "react";
 import Loader from "./components/Loader/Loader";
-
+import "./store/localize/localize";
 const Layout = lazy(() => import("./components/Layout"));
 const ErrorPage = lazy(() => import("./pages/ErrorPage"));
 const Movies = lazy(() => import("./pages/Movies"));

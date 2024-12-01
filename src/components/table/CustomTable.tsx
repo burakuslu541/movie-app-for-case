@@ -1,5 +1,4 @@
 import * as React from "react";
-import Button from "@mui/material/Button";
 import { DataGrid, useGridApiRef } from "@mui/x-data-grid";
 import type { GridPaginationMeta } from "@mui/x-data-grid";
 import colors from "../../styles/_export.scss";

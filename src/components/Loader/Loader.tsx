@@ -14,9 +14,10 @@ function Loader() {
         width: "100%",
         marginTop: "20px",
         height: "100%",
+        textAlign: "center",
       }}
     >
-      <HashLoader />
+      <HashLoader color="primary" size={50} />
     </Box>
   );
 }
