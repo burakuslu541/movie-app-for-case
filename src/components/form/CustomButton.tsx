@@ -1,6 +1,7 @@
 import React from "react";
 import Button from "@mui/material/Button";
-// import colors from "../../styles/_export.scss";
+import { useAppSelector } from "../../store/client/hooks";
+import colors from "../../styles/_export.scss";
 
 interface ICustomButtonProps {
   heightSize?: string;
@@ -30,13 +31,14 @@ const CustomButton = (props: ICustomButtonProps) => {
     widthSize,
     ...other
   } = props;
+  const darkMode = useAppSelector((state) => state.darkMode.value);
 
   const defaultProps = {
     heightSize: "50px",
     paddingSize: "15px",
-    backgroundColor: "#314469",
+    backgroundColor: darkMode ? colors.warning : colors.warningLight,
     textTransform: "uppercase",
-    textColor: "#fff",
+    textColor: darkMode ? colors.neutral : colors.neutralLight,
     borderRadius: "12px",
     fontSize: "12px",
     widthSize: "auto",

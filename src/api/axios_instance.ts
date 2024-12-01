@@ -1,13 +1,7 @@
 import axios from "axios";
 
-interface IConfig {
-  headers?: any;
-  params?: any;
-  data?: any;
-}
-
 const instance = axios.create({
-  baseURL: "http://www.omdbapi.com/?apikey=ac872dcd",
+  baseURL: "http://www.omdbapi.com",
   headers: {
     "Content-Type": "application/json",
   },
