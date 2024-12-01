@@ -20,8 +20,12 @@ import { useAppDispatch } from "../store/client/hooks";
 import { addSearch } from "../store/client/features/pastSearches/pastSearches";
 import _ from "lodash";
 import useMediaQuery from "@mui/material/useMediaQuery";
+//i18n
+import { withTranslation } from "react-i18next";
+import i18n from "../store/localize/localize";
 
 function Movies() {
+  const { t } = i18n;
   const query = useMediaQuery("(max-width: 600px)");
   const darkMode = useAppSelector((state) => state.darkMode.value);
   const pastSearches = useAppSelector((state) => state.pastSearches.value);
@@ -58,10 +62,10 @@ function Movies() {
   });
 
   const columns = [
-    { field: "imdbID", headerName: "imdbID", minWidth: 120 },
-    { field: "Title", headerName: "Title", minWidth: 180, flex: 1 },
-    { field: "Year", headerName: "Year", minWidth: 180, flex: 1 },
-    { field: "Type", headerName: "Type", minWidth: 180, flex: 1 },
+    { field: "imdbID", headerName: t("COMMON.IMDB_ID"), minWidth: 120 },
+    { field: "Title", headerName: t("COMMON.TITLE"), minWidth: 180, flex: 1 },
+    { field: "Year", headerName: t("COMMON.YEAR"), minWidth: 180, flex: 1 },
+    { field: "Type", headerName: t("COMMON.TYPE"), minWidth: 180, flex: 1 },
     {
       field: "Poster",
       headerName: "Poster",
@@ -118,10 +122,10 @@ function Movies() {
           onChange={(ev: any) => {
             setTitle(ev.target.value);
           }}
-          placeholder="Search"
+          placeholder={t("COMMON.SEARCH_MOVIE")}
         />
         <CustomDatePicker
-          label="Year"
+          label={t("COMMON.YEAR")}
           value={year}
           onChange={handleDateChange}
           maxDate={dayjs().format("YYYY")}
@@ -129,10 +133,10 @@ function Movies() {
         <CustomSelectBox
           label="Type"
           options={[
-            { value: "Type", label: "All" },
-            { value: "movie", label: "Movie" },
-            { value: "series", label: "Series" },
-            { value: "episode", label: "Episode" },
+            { value: "Type", label: t("COMMON.ALL") },
+            { value: "movie", label: t("COMMON.MOVIE") },
+            { value: "series", label: t("COMMON.SERIES") },
+            { value: "episode", label: t("COMMON.EPISODE") },
           ]}
           style={{ width: "350px" }}
           value={type}
@@ -143,11 +147,7 @@ function Movies() {
         <Box sx={{ display: "flex", gap: "8px" }}>
           <CustomButton
             onClick={() => {
-              toast.success(
-                `Searching for ${title} ${type === "Type" ? "" : type} ${
-                  year ? `in ${year}` : ""
-                }`
-              );
+              toast.success(t("COMMON.SEARCH_SUCCESS"));
               setSearch({ title, type, year: year });
               dispatch(addSearch(title));
             }}
@@ -156,10 +156,9 @@ function Movies() {
               variant="button"
               sx={{ color: darkMode ? colors.warning : colors.warningLight }}
             >
-              Search
+              {t("COMMON.SEARCH")}
             </Typography>
           </CustomButton>
-
           <Box
             sx={{
               display: "flex",
@@ -192,7 +191,7 @@ function Movies() {
                 }}
               >
                 {pastSearches.length === 0 ? (
-                  <Typography>No past searches</Typography>
+                  <Typography>{t("COMMON.NO_PAST_SEARCHES")}</Typography>
                 ) : (
                   _.uniq(pastSearches).map((search, index) => (
                     <Typography
@@ -244,4 +243,4 @@ function Movies() {
   );
 }
 
-export default Movies;
+export default withTranslation()(Movies);

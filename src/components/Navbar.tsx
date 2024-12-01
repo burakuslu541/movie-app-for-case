@@ -45,29 +45,58 @@ const Navbar = () => {
           navigate("/");
         }}
       >
-        Movie
-        {/* {t("movie")} */}
+        {t("COMMON.MOVIE")}
         <Typography
           sx={{
             color: darkMode ? colors.warning : colors.warningLight,
             fontSize: query ? "25px" : "35px",
           }}
         >
-          App
-          {/* {t("app")} */}
+          {t("COMMON.APP")}
         </Typography>
       </Box>
 
-      <Box sx={{ display: "flex", gap: "8px", alignItems: "center" }}>
+      <Box
+        sx={{
+          display: "flex",
+          gap: "8px",
+          alignItems: "center",
+          color: darkMode ? colors.neutral : colors.neutralLight,
+          fontSize: "13px",
+        }}
+      >
+        <Box sx={{ display: "flex", gap: "8px", alignItems: "center" }}>
+          <Typography
+            sx={{
+              color: darkMode ? colors.neutral : colors.neutralLight,
+              fontSize: "13px",
+            }}
+          >
+            {t("COMMON.DARK_MODE")}
+          </Typography>
+          <Switch color="warning" checked={theme} onChange={handleToggle} />
+        </Box>
         <Typography
           sx={{
-            color: darkMode ? colors.neutral : colors.neutralLight,
+            cursor: "pointer",
+            color: colors.warning,
             fontSize: "13px",
+            border: "1px solid",
+            padding: "4px",
+            borderRadius: "5px",
+          }}
+          onClick={() => {
+            i18n.changeLanguage(
+              localStorage.getItem("language") === "tr" ? "en" : "tr"
+            );
+            localStorage.setItem(
+              "language",
+              localStorage.getItem("language") === "tr" ? "en" : "tr"
+            );
           }}
         >
-          Dark Mode
+          {localStorage.getItem("language") === "tr" ? "TR" : "EN"}
         </Typography>
-        <Switch color="warning" checked={theme} onChange={handleToggle} />
       </Box>
     </Box>
   );

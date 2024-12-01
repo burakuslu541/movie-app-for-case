@@ -7,8 +7,12 @@ import { useLocation } from "react-router-dom";
 import { HashLoader } from "react-spinners";
 import _ from "lodash";
 import useMediaQuery from "@mui/material/useMediaQuery";
+//i18n
+import { withTranslation } from "react-i18next";
+import i18n from "../store/localize/localize";
 
 function Movie() {
+  const { t } = i18n;
   const location = useLocation();
   const query = useMediaQuery("(max-width: 600px)");
   const darkMode = useAppSelector((state) => state.darkMode.value);
@@ -92,7 +96,6 @@ function Movie() {
                   color: darkMode ? colors.neutral : colors.neutralLight,
                   display: "flex",
                   gap: "8px",
-                  marginBottom: "8px",
                 }}
               >
                 <Typography
@@ -102,7 +105,7 @@ function Movie() {
                     textDecoration: "underline",
                   }}
                 >
-                  Director:
+                  {t("COMMON.DIRECTOR")}:
                 </Typography>
                 {data?.data?.Director}
               </Typography>
@@ -121,7 +124,7 @@ function Movie() {
                     textDecoration: "underline",
                   }}
                 >
-                  Year:
+                  {t("COMMON.YEAR")}:
                 </Typography>
                 {data?.data?.Year}
               </Typography>
@@ -140,7 +143,7 @@ function Movie() {
                     textDecoration: "underline",
                   }}
                 >
-                  Genre:
+                  {t("COMMON.GENRE")}:
                 </Typography>
                 {data?.data?.Genre}
               </Typography>
@@ -159,7 +162,7 @@ function Movie() {
                     textDecoration: "underline",
                   }}
                 >
-                  Rated:
+                  {t("COMMON.RATED")}:
                 </Typography>
                 {data?.data?.Rated}
               </Typography>
@@ -178,7 +181,7 @@ function Movie() {
                     textDecoration: "underline",
                   }}
                 >
-                  Released:
+                  {t("COMMON.RELEASED")}:
                 </Typography>
                 {data?.data?.Released}
               </Typography>
@@ -197,7 +200,7 @@ function Movie() {
                     textDecoration: "underline",
                   }}
                 >
-                  Runtime:
+                  {t("COMMON.RUNTIME")}:
                 </Typography>
                 {data?.data?.Runtime}
               </Typography>
@@ -216,7 +219,7 @@ function Movie() {
                     textDecoration: "underline",
                   }}
                 >
-                  Writer:
+                  {t("COMMON.WRITER")}:
                 </Typography>
                 {data?.data?.Writer}
               </Typography>
@@ -258,7 +261,7 @@ function Movie() {
                 borderBottom: "1px solid" + colors.warning,
               }}
             >
-              Details
+              {t("COMMON.DETAILS")}
             </Typography>
             <Box
               sx={{
@@ -286,7 +289,7 @@ function Movie() {
                       fontSize: "13px",
                     }}
                   >
-                    Actors:
+                    {t("COMMON.ACTORS")}:
                   </Typography>
                   {data?.data?.Actors}
                 </Typography>
@@ -305,7 +308,7 @@ function Movie() {
                       fontSize: "13px",
                     }}
                   >
-                    Awards:
+                    {t("COMMON.AWARDS")}:
                   </Typography>
                   {data?.data?.Awards}
                 </Typography>
@@ -324,7 +327,7 @@ function Movie() {
                       fontSize: "13px",
                     }}
                   >
-                    Country:
+                    {t("COMMON.COUNTRY")}:
                   </Typography>
                   {data?.data?.Country}
                 </Typography>
@@ -343,7 +346,7 @@ function Movie() {
                       fontSize: "13px",
                     }}
                   >
-                    DVD:
+                    {t("COMMON.DVD")}:
                   </Typography>
                   {data?.data?.DVD}
                 </Typography>
@@ -362,7 +365,7 @@ function Movie() {
                       fontSize: "13px",
                     }}
                   >
-                    BoxOffice:
+                    {t("COMMON.BOX_OFFICE")}:
                   </Typography>
                   {data?.data?.BoxOffice}
                 </Typography>
@@ -381,7 +384,7 @@ function Movie() {
                       fontSize: "13px",
                     }}
                   >
-                    Website:
+                    {t("COMMON.WEBSITE")}:
                   </Typography>
                   {data?.data?.Website}
                 </Typography>
@@ -400,7 +403,7 @@ function Movie() {
                       fontSize: "13px",
                     }}
                   >
-                    Production:
+                    {t("COMMON.PRODUCTION")}:
                   </Typography>
                   {data?.data?.Production}
                 </Typography>
@@ -423,7 +426,7 @@ function Movie() {
                       fontSize: "13px",
                     }}
                   >
-                    Ratings:
+                    {t("COMMON.RATINGS")}:
                   </Typography>
                   {_.map(data?.data?.Ratings, (rating) => (
                     <Typography
@@ -461,7 +464,7 @@ function Movie() {
                       fontSize: "13px",
                     }}
                   >
-                    Metascore:
+                    {t("COMMON.META_SCORE")}:
                   </Typography>
                   {data?.data?.Metascore}
                 </Typography>
@@ -480,7 +483,7 @@ function Movie() {
                       fontSize: "13px",
                     }}
                   >
-                    imdbRating:
+                    {t("COMMON.IMDB_RATING")}:
                   </Typography>
                   {data?.data?.imdbRating}
                 </Typography>
@@ -499,7 +502,7 @@ function Movie() {
                       fontSize: "13px",
                     }}
                   >
-                    imdbVotes:
+                    {t("COMMON.IMDB_VOTES")}:
                   </Typography>
                   {data?.data?.imdbVotes}
                 </Typography>
@@ -518,7 +521,7 @@ function Movie() {
                       fontSize: "13px",
                     }}
                   >
-                    Type:
+                    {t("COMMON.TYPE")}:
                   </Typography>
                   {data?.data?.Type}
                 </Typography>
@@ -537,7 +540,7 @@ function Movie() {
                       fontSize: "13px",
                     }}
                   >
-                    Plot:
+                    {t("COMMON.PLOT")}:
                   </Typography>
                   <CustomTooltip
                     title={data?.data?.Plot}
@@ -566,7 +569,7 @@ function Movie() {
                       fontSize: "13px",
                     }}
                   >
-                    Languages:
+                    {t("COMMON.LANGUAGES")}:
                   </Typography>
                   {data?.data?.Language}
                 </Typography>
@@ -579,4 +582,4 @@ function Movie() {
   );
 }
 
-export default Movie;
+export default withTranslation()(Movie);

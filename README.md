@@ -2,6 +2,10 @@
 
 This is a simple movie application that allows users to browse and search for movies.
 
+## Demo Link
+
+`https://movie-app-for-case.vercel.app/`
+
 ## Features
 
 - Browse popular movies
@@ -12,7 +16,7 @@ This is a simple movie application that allows users to browse and search for mo
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/movie-app.git
+   git clone https://github.com/burakuslu541/movie-app-for-case
    ```
 2. Navigate to the project directory:
    ```bash
