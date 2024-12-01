@@ -7,8 +7,10 @@ import { Switch } from "@mui/material";
 import { Typography } from "@mui/material";
 import { toggleDarkMode } from "../store/client/features/darkMode/darkMode";
 import colors from "../styles/_export.scss";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 const Navbar = () => {
+  const query = useMediaQuery("(max-width: 600px)");
   const darkMode = useAppSelector((state) => state.darkMode.value);
   const [theme, setTheme] = useState(darkMode);
   const navigate = useNavigate();
@@ -24,10 +26,16 @@ const Navbar = () => {
   return (
     <Box
       className={styles.navbar}
-      sx={{ backgroundColor: darkMode ? colors.base100 : colors.baseLight100 }}
+      sx={{
+        backgroundColor: darkMode ? colors.base100 : colors.baseLight100,
+        paddingX: query ? "16px" : "150px",
+      }}
     >
       <Box
-        sx={{ color: darkMode ? colors.neutral : colors.neutralLight }}
+        sx={{
+          color: darkMode ? colors.neutral : colors.neutralLight,
+          fontSize: query ? "25px" : "35px",
+        }}
         className={styles.btn}
         onClick={() => {
           navigate("/");
@@ -37,7 +45,7 @@ const Navbar = () => {
         <Typography
           sx={{
             color: darkMode ? colors.warning : colors.warningLight,
-            fontSize: "35px",
+            fontSize: query ? "25px" : "35px",
           }}
         >
           App

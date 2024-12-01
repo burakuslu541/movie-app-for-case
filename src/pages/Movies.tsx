@@ -19,8 +19,10 @@ import Popover from "@mui/material/Popover";
 import { useAppDispatch } from "../store/client/hooks";
 import { addSearch } from "../store/client/features/pastSearches/pastSearches";
 import _ from "lodash";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 function Movies() {
+  const query = useMediaQuery("(max-width: 600px)");
   const darkMode = useAppSelector((state) => state.darkMode.value);
   const pastSearches = useAppSelector((state) => state.pastSearches.value);
   const dispatch = useAppDispatch();
@@ -99,11 +101,17 @@ function Movies() {
         display: "flex",
         flexDirection: "column",
         gap: "28px",
-        width: "100%",
-        marginTop: "50px",
+        paddingX: query ? "16px" : "150px",
       }}
     >
-      <Box sx={{ display: "flex", gap: "8px" }}>
+      <Box
+        sx={{
+          display: "flex",
+          gap: "16px",
+          flexDirection: query ? "column" : "row",
+          alignItems: query ? "flex-start" : "center",
+        }}
+      >
         <OutlinedInput
           value={title}
           borderRadius="12px"
@@ -132,86 +140,90 @@ function Movies() {
             setType(ev.target.value);
           }}
         />
-        <CustomButton
-          onClick={() => {
-            toast.success(
-              `Searching for ${title} ${type === "Type" ? "" : type} ${
-                year ? `in ${year}` : ""
-              }`
-            );
-            setSearch({ title, type, year: year });
-            // addSearch: (state, action: PayloadAction<string>) => {
-            //     state.value.push(action.payload)
-            //   },
-            dispatch(addSearch(title));
-          }}
-        >
-          <Typography
-            variant="button"
-            sx={{ color: darkMode ? colors.warning : colors.warningLight }}
-          >
-            Search
-          </Typography>
-        </CustomButton>
-
-        <Box
-          sx={{
-            display: "flex",
-            gap: "8px",
-            alignItems: "center",
-            cursor: "pointer",
-          }}
-        >
-          <IconButton onClick={handleClick}>
-            <HistoryIcon color="primary" />
-          </IconButton>
-          <Popover
-            id={id}
-            open={open}
-            anchorEl={anchorEl}
-            onClose={handleClose}
-            anchorOrigin={{
-              vertical: "bottom",
-              horizontal: "left",
+        <Box sx={{ display: "flex", gap: "8px" }}>
+          <CustomButton
+            onClick={() => {
+              toast.success(
+                `Searching for ${title} ${type === "Type" ? "" : type} ${
+                  year ? `in ${year}` : ""
+                }`
+              );
+              setSearch({ title, type, year: year });
+              // addSearch: (state, action: PayloadAction<string>) => {
+              //     state.value.push(action.payload)
+              //   },
+              dispatch(addSearch(title));
             }}
           >
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                gap: "8px",
-                padding: "25px",
-                minWidth: "150px",
-                minHeight: "150px",
+            <Typography
+              variant="button"
+              sx={{ color: darkMode ? colors.warning : colors.warningLight }}
+            >
+              Search
+            </Typography>
+          </CustomButton>
+
+          <Box
+            sx={{
+              display: "flex",
+              gap: "8px",
+              alignItems: "center",
+              cursor: "pointer",
+            }}
+          >
+            <IconButton onClick={handleClick}>
+              <HistoryIcon color="primary" />
+            </IconButton>
+            <Popover
+              id={id}
+              open={open}
+              anchorEl={anchorEl}
+              onClose={handleClose}
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "left",
               }}
             >
-              {pastSearches.length === 0 ? (
-                <Typography>No past searches</Typography>
-              ) : (
-                _.uniq(pastSearches).map((search, index) => (
-                  <Typography
-                    key={index}
-                    onClick={() => {
-                      setTitle(search);
-                      setSearch({ title: search, type: "", year: "" });
-                      handleClose();
-                    }}
-                    sx={{
-                      cursor: "pointer",
-                      "&:hover": {
-                        color: darkMode ? colors.warning : colors.warningLight,
-                        textDecoration: "underline",
-                        opacity: 0.8,
-                      },
-                      width: "100%",
-                    }}
-                  >
-                    {search}
-                  </Typography>
-                ))
-              )}
-            </Box>
-          </Popover>
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "8px",
+                  padding: "25px",
+                  minWidth: "150px",
+                  minHeight: "150px",
+                }}
+              >
+                {pastSearches.length === 0 ? (
+                  <Typography>No past searches</Typography>
+                ) : (
+                  _.uniq(pastSearches).map((search, index) => (
+                    <Typography
+                      key={index}
+                      onClick={() => {
+                        setTitle(search);
+                        setSearch({ title: search, type: "", year: "" });
+                        handleClose();
+                      }}
+                      sx={{
+                        cursor: "pointer",
+                        "&:hover": {
+                          color: darkMode
+                            ? colors.warning
+                            : colors.warningLight,
+                          textDecoration: "underline",
+                          opacity: 0.8,
+                        },
+                        width: "100%",
+                      }}
+                    >
+                      {search}
+                    </Typography>
+                  ))
+                )}
+              </Box>
+            </Popover>
+          </Box>
         </Box>
       </Box>
       <CustomTable

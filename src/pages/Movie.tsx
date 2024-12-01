@@ -6,9 +6,11 @@ import colors from "../styles/_export.scss";
 import { useLocation } from "react-router-dom";
 import { HashLoader } from "react-spinners";
 import _ from "lodash";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 function Movie() {
   const location = useLocation();
+  const query = useMediaQuery("(max-width: 600px)");
   const darkMode = useAppSelector((state) => state.darkMode.value);
 
   const id =
@@ -24,7 +26,6 @@ function Movie() {
         justifyContent: "center",
         gap: "28px",
         width: "100%",
-        marginTop: "20px",
         height: "100%",
       }}
     >
@@ -43,12 +44,13 @@ function Movie() {
           <Box
             sx={{
               display: "flex",
+              flexDirection: query ? "column" : "row",
               alignItems: "center",
               justifyContent: "space-between",
               backgroundColor: darkMode ? colors.base100 : colors.baseLight100,
-              padding: "32px",
+              padding: query ? "10px" : "32px",
               height: "100%",
-              width: "70%",
+              width: query ? "90%" : "80%",
               borderRadius: "16px",
             }}
           >
@@ -56,8 +58,8 @@ function Movie() {
               sx={{
                 display: "flex",
                 flexDirection: "column",
-                gap: "20px",
-                padding: "16px",
+                gap: query ? "16px" : "20px",
+                padding: query ? "8px" : "16px",
                 borderRadius: "8px",
                 height: "300px",
                 justifyContent: "center",
@@ -66,7 +68,7 @@ function Movie() {
               <Typography
                 sx={{
                   color: darkMode ? colors.warning : colors.warningLight,
-                  fontSize: "25px",
+                  fontSize: query ? "16px" : "25px",
                   borderBottom: "1px solid" + colors.warning,
                   display: "flex",
                   alignItems: "center",
@@ -79,7 +81,7 @@ function Movie() {
                     color: darkMode ? colors.neutral : colors.neutralLight,
                     display: "flex",
                     gap: "8px",
-                    fontSize: "25px",
+                    fontSize: query ? "13px" : "16px",
                   }}
                 >
                   ({data?.data?.imdbID})
@@ -242,9 +244,9 @@ function Movie() {
               gap: "8px",
               flexDirection: "column",
               backgroundColor: darkMode ? colors.base300 : colors.baseLight300,
-              padding: "32px",
+              padding: query ? "10px" : "32px",
               height: "100%",
-              width: "70%",
+              width: query ? "90%" : "80%",
               borderRadius: "16px",
             }}
           >
@@ -261,6 +263,7 @@ function Movie() {
             <Box
               sx={{
                 display: "flex",
+                flexDirection: query ? "column" : "row",
                 gap: "8px",
                 justifyContent: "space-between",
               }}
